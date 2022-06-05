@@ -3,15 +3,19 @@ package pl.pijok;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
+import pl.pijok.game.DifficultyPane;
+import pl.pijok.mainPane.MainPane;
+import pl.pijok.menu.MenuPane;
+import pl.pijok.screen.ScreenType;
 
 public class GameAndWatch extends Application {
 
-    private static Group root;
     private static Scene scene;
-    private static BorderPane mainPane;
+    private static MainPane mainPane;
+    private static MenuPane menuPane;
+    private static DifficultyPane difficultyPane;
 
     public static void main(String[] args) {
 
@@ -24,26 +28,26 @@ public class GameAndWatch extends Application {
         super.init();
 
         Settings.load();
+
+        mainPane = new MainPane();
+        menuPane = new MenuPane();
+        difficultyPane = new DifficultyPane();
+
         Controllers.load();
+        InputHandler.setup();
+
+        Controllers.getScreenController().addScreen(ScreenType.MAIN_MENU, menuPane);
+        Controllers.getScreenController().addScreen(ScreenType.DIFFICULTY, difficultyPane);
+        Controllers.getScreenController().setMainPane(mainPane.getGamePane());
     }
 
     @Override
     public void start(Stage stage) throws Exception {
-        root = new Group();
-        scene = new Scene(root, Settings.getWidth(), Settings.getHeight());
+        scene = new Scene(mainPane, Settings.getWidth(), Settings.getHeight());
+
+        Controllers.getScreenController().activate(ScreenType.MAIN_MENU);
 
         stage.setScene(scene);
-
-        mainPane = new BorderPane();
-        mainPane.setMinWidth(Settings.getWidth());
-        mainPane.setMinHeight(Settings.getHeight());
-
-        Button leftA = new Button("Left A");
-        Button leftB = new Button("Left B");
-
-        Button rightA = new Button("Right A");
-        Button rightB = new Button("Right B");
-
         stage.setTitle(Settings.getTitle());
         stage.show();
     }
@@ -57,11 +61,15 @@ public class GameAndWatch extends Application {
         return mainPane;
     }
 
-    public static Group getRoot() {
-        return root;
-    }
-
     public static Scene getScene() {
         return scene;
+    }
+
+    public static MenuPane getMenuPane() {
+        return menuPane;
+    }
+
+    public static DifficultyPane getDifficultyPane() {
+        return difficultyPane;
     }
 }

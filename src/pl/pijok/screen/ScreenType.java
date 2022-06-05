@@ -2,7 +2,8 @@ package pl.pijok.screen;
 
 public enum ScreenType {
 
-    MAIN,
+    MAIN_MENU,
+    DIFFICULTY,
     GAME,
     LEADERBOARD
 

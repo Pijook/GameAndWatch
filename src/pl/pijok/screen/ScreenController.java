@@ -1,7 +1,5 @@
 package pl.pijok.screen;
 
-import javafx.scene.Group;
-import javafx.scene.Scene;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 
@@ -10,7 +8,9 @@ import java.util.HashMap;
 public class ScreenController {
 
     private final HashMap<ScreenType, Pane> screens;
-    private StackPane mainPane;
+    private Pane mainPane;
+    private Pane currentScreen;
+    private ScreenType currentScreenType;
 
     public ScreenController(){
         screens = new HashMap<>();
@@ -25,20 +25,29 @@ public class ScreenController {
     }
 
     public void activate(ScreenType screenType){
-        //mainPane.setRoot(screens.get(screenType));
         mainPane.getChildren().clear();
         mainPane.getChildren().add(screens.get(screenType));
+        currentScreenType = screenType;
+        currentScreen = screens.get(screenType);
     }
 
     public HashMap<ScreenType, Pane> getScreens() {
         return screens;
     }
 
-    public StackPane getMainPane() {
+    public Pane getMainPane() {
         return mainPane;
     }
 
-    public void setMainPane(StackPane mainPane) {
+    public void setMainPane(Pane mainPane) {
         this.mainPane = mainPane;
+    }
+
+    public Pane getCurrentScreen() {
+        return currentScreen;
+    }
+
+    public ScreenType getCurrentScreenType() {
+        return currentScreenType;
     }
 }
