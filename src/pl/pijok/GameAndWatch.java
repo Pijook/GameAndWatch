@@ -31,6 +31,7 @@ public class GameAndWatch extends Application {
         super.init();
 
         Settings.load();
+        Assets.load();
 
         mainPane = new MainPane();
         menuPane = new MenuPane();
