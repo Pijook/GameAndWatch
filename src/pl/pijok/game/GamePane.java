@@ -8,13 +8,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.util.Duration;
 import pl.pijok.Assets;
+import pl.pijok.Settings;
 
 public abstract class GamePane extends Pane {
 
     private Label scoreLabel;
     private Label gameTypeLabel;
     private Label missedEggsLabel;
-    private ImageView eggImage;
+    private ImageView rampLeftA;
+    private ImageView rampLeftB;
+    private ImageView rampRightA;
 
     public GamePane(){
         createElements();
@@ -25,14 +28,10 @@ public abstract class GamePane extends Pane {
         scoreLabel = new Label("0");
         gameTypeLabel = new Label("Game A");
         missedEggsLabel = new Label("0");
-        eggImage = new ImageView(Assets.getEggImage());
 
-        RotateTransition rotateTransition = new RotateTransition(Duration.seconds(100), eggImage);
-        //rotateTransition.setDelay(Duration.ZERO);
-        rotateTransition.setByAngle(360000);
-        //rotateTransition.setByAngle(Animation.INDEFINITE);
-        rotateTransition.setCycleCount(Animation.INDEFINITE);
-        rotateTransition.play();
+        rampLeftA = new ImageView(Assets.getRampLeftImage());
+        rampLeftB = new ImageView(Assets.getRampLeftImage());
+        rampRightA = new ImageView(Assets.getRampRightImage());
 
     }
 
@@ -46,10 +45,16 @@ public abstract class GamePane extends Pane {
         missedEggsLabel.setLayoutX(150);
         missedEggsLabel.setLayoutY(150);
 
-        eggImage.setLayoutX(200);
-        eggImage.setLayoutY(200);
+        rampLeftA.setLayoutX(Settings.getWidth() / 2 - rampLeftA.getImage().getWidth());
+        rampLeftA.setLayoutY(50);
 
-        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, eggImage);
+        rampLeftB.setLayoutX(Settings.getWidth() / 2 - rampLeftB.getImage().getWidth());
+        rampLeftB.setLayoutY(200);
+
+        rampRightA.setLayoutX(0);
+        rampRightA.setLayoutY(50);
+
+        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, rampLeftA, rampLeftB, rampRightA);
     }
 
     public Label getScoreLabel() {

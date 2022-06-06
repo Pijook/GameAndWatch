@@ -51,7 +51,7 @@ public class InputHandler {
                 }
             }
             case DIFFICULTY -> {
-                Controllers.getScreenController().activate(ScreenType.GAME);
+                Controllers.getScreenController().activate(ScreenType.GAME_A);
                 Controllers.getGameController().setGameType(GameType.GameA);
             }
         }
@@ -75,7 +75,7 @@ public class InputHandler {
                 }
             }
             case DIFFICULTY -> {
-                Controllers.getScreenController().activate(ScreenType.GAME);
+                Controllers.getScreenController().activate(ScreenType.GAME_B);
                 Controllers.getGameController().setGameType(GameType.GameB);
             }
         }

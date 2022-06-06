@@ -4,7 +4,8 @@ public enum ScreenType {
 
     MAIN_MENU,
     DIFFICULTY,
-    GAME,
+    GAME_A,
+    GAME_B,
     LEADERBOARD
 
 }
