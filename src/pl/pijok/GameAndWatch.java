@@ -6,6 +6,8 @@ import javafx.scene.Scene;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import pl.pijok.game.DifficultyPane;
+import pl.pijok.game.GamePane;
+import pl.pijok.game.GamePaneA;
 import pl.pijok.mainPane.MainPane;
 import pl.pijok.menu.MenuPane;
 import pl.pijok.screen.ScreenType;
@@ -16,6 +18,7 @@ public class GameAndWatch extends Application {
     private static MainPane mainPane;
     private static MenuPane menuPane;
     private static DifficultyPane difficultyPane;
+    private static GamePane gamePane;
 
     public static void main(String[] args) {
 
@@ -32,12 +35,14 @@ public class GameAndWatch extends Application {
         mainPane = new MainPane();
         menuPane = new MenuPane();
         difficultyPane = new DifficultyPane();
+        gamePane = new GamePaneA();
 
         Controllers.load();
         InputHandler.setup();
 
         Controllers.getScreenController().addScreen(ScreenType.MAIN_MENU, menuPane);
         Controllers.getScreenController().addScreen(ScreenType.DIFFICULTY, difficultyPane);
+        Controllers.getScreenController().addScreen(ScreenType.GAME, gamePane);
         Controllers.getScreenController().setMainPane(mainPane.getGamePane());
     }
 
@@ -71,5 +76,9 @@ public class GameAndWatch extends Application {
 
     public static DifficultyPane getDifficultyPane() {
         return difficultyPane;
+    }
+
+    public static GamePane getGamePane() {
+        return gamePane;
     }
 }

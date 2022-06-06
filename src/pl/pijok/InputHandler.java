@@ -1,5 +1,6 @@
 package pl.pijok;
 
+import pl.pijok.game.GameType;
 import pl.pijok.menu.MenuController;
 import pl.pijok.screen.ScreenController;
 import pl.pijok.screen.ScreenType;
@@ -49,6 +50,10 @@ public class InputHandler {
                     }
                 }
             }
+            case DIFFICULTY -> {
+                Controllers.getScreenController().activate(ScreenType.GAME);
+                Controllers.getGameController().setGameType(GameType.GameA);
+            }
         }
     }
 
@@ -68,6 +73,10 @@ public class InputHandler {
                         System.out.println("Exit");
                     }
                 }
+            }
+            case DIFFICULTY -> {
+                Controllers.getScreenController().activate(ScreenType.GAME);
+                Controllers.getGameController().setGameType(GameType.GameB);
             }
         }
     }
