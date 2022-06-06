@@ -1,5 +1,7 @@
 package pl.pijok.game;
 
+import java.util.Random;
+
 public class GameController {
 
     private int score;
@@ -20,7 +22,19 @@ public class GameController {
         gameType = GameType.GameA;
     }
 
+    public void spawnEgg(){
+        int range;
+        if(gameType == GameType.GameA){
+            range = 3;
+        }
+        else{
+            range = 4;
+        }
 
+        int rampNumber = new Random().nextInt(range);
+
+
+    }
 
     public GameType getGameType() {
         return gameType;
