@@ -92,6 +92,7 @@ public class GameController {
             @Override
             public void handle(DialogEvent dialogEvent) {
                Controllers.getLeaderboardController().addScore(textInputDialog.getResult(), score.get(), time);
+               Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
             }
         });
 

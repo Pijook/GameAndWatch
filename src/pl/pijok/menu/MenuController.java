@@ -47,7 +47,7 @@ public class MenuController {
         )));
 
         newLabel.setBorder(new Border(new BorderStroke(
-                Color.BLACK,
+                Color.WHITE,
                 BorderStrokeStyle.SOLID,
                 CornerRadii.EMPTY,
                 BorderWidths.DEFAULT

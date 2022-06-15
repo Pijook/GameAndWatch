@@ -9,7 +9,7 @@ public class Settings {
     public static void load(){
         width = 1280;
         height = 720;
-        title = "Game & Watch";
+        title = "Consolus";
     }
 
     public static int getWidth() {

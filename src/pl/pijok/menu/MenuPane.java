@@ -4,6 +4,7 @@ import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 
 public class MenuPane extends StackPane {
@@ -20,16 +21,20 @@ public class MenuPane extends StackPane {
     }
 
     private void createElements(){
-        titleLabel = new Label("Mickey Mouse");
+        titleLabel = new Label("Amogus");
+        titleLabel.setTextFill(Color.WHITE);
         titleLabel.setFont(new Font(30));
 
         newGameLabel = new Label("New Game");
+        newGameLabel.setTextFill(Color.WHITE);
         newGameLabel.setFont(new Font(20));
 
         highscoresLabel = new Label("High Scores");
+        highscoresLabel.setTextFill(Color.WHITE);
         highscoresLabel.setFont(new Font(20));
 
         exitLabel = new Label("Exit");
+        exitLabel.setTextFill(Color.WHITE);
         exitLabel.setFont(new Font(20));
 
         vBox = new VBox();

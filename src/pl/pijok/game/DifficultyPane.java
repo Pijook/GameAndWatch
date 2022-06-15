@@ -6,6 +6,8 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import pl.pijok.Controllers;
 import pl.pijok.Settings;
 
@@ -33,8 +35,16 @@ public class DifficultyPane extends StackPane {
         hBox.setSpacing(25);
 
         titleLabel = new Label("Choose game type");
+        titleLabel.setFont(new Font(35.0));
+        titleLabel.setTextFill(Color.WHITE);
+
         aModeLabel = new Label("3 Ramps (Game A)");
+        aModeLabel.setFont(new Font(25.0));
+        aModeLabel.setTextFill(Color.WHITE);
+
         bModeLabel = new Label("4 Ramps (Game B)");
+        bModeLabel.setFont(new Font(25.0));
+        bModeLabel.setTextFill(Color.WHITE);
 
     }
 

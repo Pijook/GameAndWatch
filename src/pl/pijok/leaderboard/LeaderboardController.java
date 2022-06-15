@@ -6,6 +6,7 @@ import pl.pijok.GameAndWatch;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class LeaderboardController {
@@ -63,6 +64,12 @@ public class LeaderboardController {
 
     public void addScore(String nickname, int score, int time){
         playerScores.add(new Score(nickname, score, time));
+        playerScores.sort(new Comparator<Score>() {
+            @Override
+            public int compare(Score o1, Score o2) {
+                return o1.score() - o2.score();
+            }
+        });
     }
 
 }

@@ -33,7 +33,7 @@ public class MainPane extends BorderPane {
     private Button rightButtonA;
     private Button rightButtonB;
 
-    //private BackgroundImage backgroundImage;
+    private BackgroundImage susBackground;
     private ImageView backgroundImage;
 
     public MainPane(){
@@ -54,6 +54,8 @@ public class MainPane extends BorderPane {
         rightVBox.setMinWidth(Settings.getWidth() / 4);
 
         leftButtonA = new Button("Left A");
+        leftButtonA.setOpacity(0);
+        leftButtonA.setPadding(new Insets(25, 25, 25, 25));
         leftButtonA.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -62,6 +64,8 @@ public class MainPane extends BorderPane {
         });
 
         leftButtonB = new Button("Left B");
+        leftButtonB.setOpacity(0);
+        leftButtonB.setPadding(new Insets(25, 25, 25, 25));
         leftButtonB.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -70,6 +74,7 @@ public class MainPane extends BorderPane {
         });
 
         gameButtonA = new Button("Game A");
+        gameButtonA.setOpacity(0);
         gameButtonA.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -78,6 +83,7 @@ public class MainPane extends BorderPane {
         });
 
         gameButtonB = new Button("Game B");
+        gameButtonB.setOpacity(0);
         gameButtonB.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -86,6 +92,7 @@ public class MainPane extends BorderPane {
         });
 
         timeButton = new Button("Time");
+        timeButton.setOpacity(0);
         timeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -94,6 +101,8 @@ public class MainPane extends BorderPane {
         });
 
         rightButtonA = new Button("Right A");
+        rightButtonA.setOpacity(0);
+        rightButtonA.setPadding(new Insets(25, 25, 25, 25));
         rightButtonA.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -102,6 +111,8 @@ public class MainPane extends BorderPane {
         });
 
         rightButtonB = new Button("Right B");
+        rightButtonB.setOpacity(0);
+        rightButtonB.setPadding(new Insets(25, 25, 25, 25));
         rightButtonB.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
             public void handle(MouseEvent mouseEvent) {
@@ -111,6 +122,8 @@ public class MainPane extends BorderPane {
 
         gamePane = new StackPane();
         gamePane.setMaxHeight(Settings.getHeight() / 2);
+        gamePane.setMaxWidth(620);
+        gamePane.setMinWidth(620);
         gamePane.setBorder(new Border(new BorderStroke(
                 Color.BLACK,
                 BorderStrokeStyle.SOLID,
@@ -118,7 +131,7 @@ public class MainPane extends BorderPane {
                 BorderWidths.DEFAULT)
         ));
 
-        //backgroundImage = new BackgroundImage(Assets.getBackgroundImage(), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+        susBackground = new BackgroundImage(Assets.getSusBackground(), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
 
         backgroundImage = new ImageView(Assets.getBackgroundImage());
 
@@ -151,8 +164,11 @@ public class MainPane extends BorderPane {
     }
 
     private void createLayout(){
-        AnchorPane anchorPane = new AnchorPane();
-        anchorPane.setMinWidth(Settings.getWidth() / 4);
+        AnchorPane rightAnchorPane = new AnchorPane();
+        rightAnchorPane.setMinWidth(Settings.getWidth() / 4);
+
+        AnchorPane leftAnchorPane = new AnchorPane();
+        leftAnchorPane.setMinWidth(Settings.getWidth() / 4);
 
         AnchorPane.setTopAnchor(gameButtonA, 80.0);
         AnchorPane.setRightAnchor(gameButtonA, 130.0);
@@ -163,25 +179,29 @@ public class MainPane extends BorderPane {
         AnchorPane.setTopAnchor(timeButton, 250.0);
         AnchorPane.setRightAnchor(timeButton, 140.0);
 
-        AnchorPane.setTopAnchor(rightButtonA, 475.0);
-        AnchorPane.setRightAnchor(rightButtonA, 130.0);
+        AnchorPane.setTopAnchor(rightButtonA, 445.0);
+        AnchorPane.setRightAnchor(rightButtonA, 120.0);
 
-        AnchorPane.setTopAnchor(rightButtonA, 475.0);
-        AnchorPane.setRightAnchor(rightButtonA, 130.0);
+        AnchorPane.setTopAnchor(rightButtonB, 565.0);
+        AnchorPane.setRightAnchor(rightButtonB, 120.0);
 
-        AnchorPane.setTopAnchor(rightButtonB, 600.0);
-        AnchorPane.setRightAnchor(rightButtonB, 130.0);
+        AnchorPane.setTopAnchor(leftButtonA, 445.0);
+        AnchorPane.setRightAnchor(leftButtonA, 130.0);
 
-        anchorPane.getChildren().addAll( gameButtonA, gameButtonB, timeButton, rightButtonA, rightButtonB);
-        leftVBox.getChildren().addAll(leftButtonA, leftButtonB);
+        AnchorPane.setTopAnchor(leftButtonB, 565.0);
+        AnchorPane.setRightAnchor(leftButtonB, 130.0);
 
-        //setBackground(new Background(backgroundImage));
+        rightAnchorPane.getChildren().addAll( gameButtonA, gameButtonB, timeButton, rightButtonA, rightButtonB);
+        //leftVBox.getChildren().addAll(leftButtonA, leftButtonB);
+        leftAnchorPane.getChildren().addAll(leftButtonA, leftButtonB);
 
         getChildren().add(backgroundImage);
 
-        setLeft(leftVBox);
-        setRight(anchorPane);
+        setLeft(leftAnchorPane);
+        setRight(rightAnchorPane);
         setCenter(gamePane);
+
+        setBackground(new Background(susBackground));
     }
 
     public VBox getLeftVBox() {
