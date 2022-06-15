@@ -1,18 +1,19 @@
 package pl.pijok.mainPane;
 
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Group;
 import javafx.scene.control.Button;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import pl.pijok.Assets;
 import pl.pijok.InputHandler;
 import pl.pijok.Settings;
-import pl.pijok.mainPane.left.LeftAClickListener;
-import pl.pijok.mainPane.left.LeftBClickListener;
-import pl.pijok.mainPane.right.*;
 
 public class MainPane extends BorderPane {
 
@@ -32,17 +33,8 @@ public class MainPane extends BorderPane {
     private Button rightButtonA;
     private Button rightButtonB;
 
-    //Listeners
-    private LeftAClickListener leftAClickListener;
-    private LeftBClickListener leftBClickListener;
-
-    private GameAClickListener gameAClickListener;
-    private GameBClickListener gameBClickListener;
-
-    private RightAClickListener rightAClickListener;
-    private RightBClickListener rightBClickListener;
-
-    private TimeClickListener timeClickListener;
+    //private BackgroundImage backgroundImage;
+    private ImageView backgroundImage;
 
     public MainPane(){
         setMinWidth(Settings.getWidth());
@@ -58,7 +50,7 @@ public class MainPane extends BorderPane {
         leftVBox.setMinWidth(Settings.getWidth() / 4);
 
         rightVBox = new VBox();
-        rightVBox.setAlignment(Pos.CENTER);
+        rightVBox.setAlignment(Pos.TOP_CENTER);
         rightVBox.setMinWidth(Settings.getWidth() / 4);
 
         leftButtonA = new Button("Left A");
@@ -126,15 +118,13 @@ public class MainPane extends BorderPane {
                 BorderWidths.DEFAULT)
         ));
 
+        //backgroundImage = new BackgroundImage(Assets.getBackgroundImage(), BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT);
+
+        backgroundImage = new ImageView(Assets.getBackgroundImage());
+
         addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
             @Override
             public void handle(KeyEvent keyEvent) {
-                //if()
-                /*
-                R P
-                F L
-                u i o
-                 */
                 if(keyEvent.getCode() == KeyCode.R){
                     InputHandler.handleLeftA();
                 }
@@ -161,12 +151,36 @@ public class MainPane extends BorderPane {
     }
 
     private void createLayout(){
-        rightVBox.getChildren().addAll(gameButtonA, gameButtonB, timeButton, rightButtonA, rightButtonB);
+        AnchorPane anchorPane = new AnchorPane();
+        anchorPane.setMinWidth(Settings.getWidth() / 4);
 
+        AnchorPane.setTopAnchor(gameButtonA, 80.0);
+        AnchorPane.setRightAnchor(gameButtonA, 130.0);
+
+        AnchorPane.setTopAnchor(gameButtonB, 165.0);
+        AnchorPane.setRightAnchor(gameButtonB, 130.0);
+
+        AnchorPane.setTopAnchor(timeButton, 250.0);
+        AnchorPane.setRightAnchor(timeButton, 140.0);
+
+        AnchorPane.setTopAnchor(rightButtonA, 475.0);
+        AnchorPane.setRightAnchor(rightButtonA, 130.0);
+
+        AnchorPane.setTopAnchor(rightButtonA, 475.0);
+        AnchorPane.setRightAnchor(rightButtonA, 130.0);
+
+        AnchorPane.setTopAnchor(rightButtonB, 600.0);
+        AnchorPane.setRightAnchor(rightButtonB, 130.0);
+
+        anchorPane.getChildren().addAll( gameButtonA, gameButtonB, timeButton, rightButtonA, rightButtonB);
         leftVBox.getChildren().addAll(leftButtonA, leftButtonB);
 
+        //setBackground(new Background(backgroundImage));
+
+        getChildren().add(backgroundImage);
+
         setLeft(leftVBox);
-        setRight(rightVBox);
+        setRight(anchorPane);
         setCenter(gamePane);
     }
 
@@ -208,33 +222,5 @@ public class MainPane extends BorderPane {
 
     public Button getRightButtonB() {
         return rightButtonB;
-    }
-
-    public LeftAClickListener getLeftAClickListener() {
-        return leftAClickListener;
-    }
-
-    public LeftBClickListener getLeftBClickListener() {
-        return leftBClickListener;
-    }
-
-    public GameAClickListener getGameAClickListener() {
-        return gameAClickListener;
-    }
-
-    public GameBClickListener getGameBClickListener() {
-        return gameBClickListener;
-    }
-
-    public RightAClickListener getRightAClickListener() {
-        return rightAClickListener;
-    }
-
-    public RightBClickListener getRightBClickListener() {
-        return rightBClickListener;
-    }
-
-    public TimeClickListener getTimeClickListener() {
-        return timeClickListener;
     }
 }

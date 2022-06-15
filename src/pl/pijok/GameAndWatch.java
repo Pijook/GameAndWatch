@@ -1,14 +1,17 @@
 package pl.pijok;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import pl.pijok.game.DifficultyPane;
 import pl.pijok.game.GamePane;
 import pl.pijok.game.GamePaneA;
 import pl.pijok.game.GamePaneB;
+import pl.pijok.leaderboard.LeaderboardPane;
 import pl.pijok.mainPane.MainPane;
 import pl.pijok.menu.MenuPane;
 import pl.pijok.screen.ScreenType;
@@ -19,8 +22,8 @@ public class GameAndWatch extends Application {
     private static MainPane mainPane;
     private static MenuPane menuPane;
     private static DifficultyPane difficultyPane;
-    private static GamePaneA gamePaneA;
-    private static GamePaneB gamePaneB;
+    private static LeaderboardPane leaderboardPane;
+    private static GamePane gamePane;
 
     public static void main(String[] args) {
 
@@ -38,17 +41,18 @@ public class GameAndWatch extends Application {
         mainPane = new MainPane();
         menuPane = new MenuPane();
         difficultyPane = new DifficultyPane();
-        gamePaneA = new GamePaneA();
-        gamePaneB = new GamePaneB();
+        gamePane = new GamePane();
+        leaderboardPane = new LeaderboardPane();
 
         Controllers.load();
         InputHandler.setup();
 
         Controllers.getScreenController().addScreen(ScreenType.MAIN_MENU, menuPane);
         Controllers.getScreenController().addScreen(ScreenType.DIFFICULTY, difficultyPane);
-        Controllers.getScreenController().addScreen(ScreenType.GAME_A, gamePaneA);
-        Controllers.getScreenController().addScreen(ScreenType.GAME_B, gamePaneB);
+        Controllers.getScreenController().addScreen(ScreenType.GAME, gamePane);
+        Controllers.getScreenController().addScreen(ScreenType.LEADERBOARD, leaderboardPane);
         Controllers.getScreenController().setMainPane(mainPane.getGamePane());
+        Controllers.getLeaderboardController().load();
     }
 
     @Override
@@ -64,6 +68,7 @@ public class GameAndWatch extends Application {
 
     @Override
     public void stop() throws Exception {
+        Controllers.getLeaderboardController().save();
         super.stop();
     }
 
@@ -83,11 +88,11 @@ public class GameAndWatch extends Application {
         return difficultyPane;
     }
 
-    public static GamePaneA getGamePaneA() {
-        return gamePaneA;
+    public static GamePane getGamePane() {
+        return gamePane;
     }
 
-    public static GamePaneB getGamePaneB() {
-        return gamePaneB;
+    public static LeaderboardPane getLeaderboardPane() {
+        return leaderboardPane;
     }
 }

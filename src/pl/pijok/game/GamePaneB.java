@@ -25,7 +25,7 @@ public class GamePaneB extends GamePane {
     private void createLayout(){
 
         rampRightB.setLayoutX(0);
-        rampRightB.setLayoutY(200);
+        rampRightB.setLayoutY(225);
 
         getChildren().addAll(rampRightB);
 

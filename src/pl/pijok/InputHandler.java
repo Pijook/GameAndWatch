@@ -21,6 +21,9 @@ public class InputHandler {
             case MAIN_MENU -> {
                 Controllers.getMenuController().selectPreviousOption();
             }
+            case GAME -> {
+                Controllers.getGameController().moveHands(0);
+            }
         }
     }
 
@@ -29,6 +32,9 @@ public class InputHandler {
         switch (screenController.getCurrentScreenType()){
             case MAIN_MENU -> {
                 Controllers.getMenuController().selectNextOption();
+            }
+            case GAME -> {
+                Controllers.getGameController().moveHands(1);
             }
         }
     }
@@ -44,6 +50,7 @@ public class InputHandler {
                     }
                     case 1 -> {
                         System.out.println("Leaderboard");
+                        Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
                     }
                     case 2 -> {
                         System.out.println("Exit");
@@ -51,8 +58,9 @@ public class InputHandler {
                 }
             }
             case DIFFICULTY -> {
-                Controllers.getScreenController().activate(ScreenType.GAME_A);
-                Controllers.getGameController().setGameType(GameType.GameA);
+                Controllers.getScreenController().activate(ScreenType.GAME);
+                //Controllers.getGameController().setGameType(GameType.GameA);
+                Controllers.getGameController().reset(GameType.GameA);
             }
         }
     }
@@ -68,6 +76,7 @@ public class InputHandler {
                     }
                     case 1 -> {
                         System.out.println("Leaderboard");
+                        Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
                     }
                     case 2 -> {
                         System.out.println("Exit");
@@ -75,22 +84,38 @@ public class InputHandler {
                 }
             }
             case DIFFICULTY -> {
-                Controllers.getScreenController().activate(ScreenType.GAME_B);
-                Controllers.getGameController().setGameType(GameType.GameB);
+                Controllers.getScreenController().activate(ScreenType.GAME);
+                //Controllers.getGameController().setGameType(GameType.GameB);
+                Controllers.getGameController().reset(GameType.GameB);
             }
         }
     }
 
     public static void handleRightA(){
         System.out.println("Right A");
+        switch (screenController.getCurrentScreenType()){
+            case GAME -> {
+                Controllers.getGameController().moveHands(2);
+            }
+        }
     }
 
     public static void handleRightB(){
         System.out.println("Right B");
+        switch (screenController.getCurrentScreenType()){
+            case GAME -> {
+                Controllers.getGameController().moveHands(3);
+            }
+        }
     }
 
     public static void handleTime(){
         System.out.println("Time");
+        switch (screenController.getCurrentScreenType()){
+            case GAME -> {
+                Controllers.getGameController().spawnEgg();
+            }
+        }
     }
 
 }
