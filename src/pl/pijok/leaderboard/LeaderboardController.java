@@ -31,6 +31,7 @@ public class LeaderboardController {
             return;
         }
 
+
         FileInputStream fileInputStream = new FileInputStream("leaderboard.txt");
         ObjectInputStream objectInputStream = new ObjectInputStream(fileInputStream);
 

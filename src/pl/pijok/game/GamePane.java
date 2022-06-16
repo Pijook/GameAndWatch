@@ -66,10 +66,10 @@ public class GamePane extends Pane {
         crewMate.setLayoutX(225);
         crewMate.setLayoutY(75);
 
-        rampLeftA.setLayoutX(Settings.getWidth() / 2 - rampLeftA.getImage().getWidth());
+        rampLeftA.setLayoutX(610 - rampLeftA.getImage().getWidth());
         rampLeftA.setLayoutY(75);
 
-        rampLeftB.setLayoutX(Settings.getWidth() / 2 - rampLeftB.getImage().getWidth());
+        rampLeftB.setLayoutX(610 - rampLeftB.getImage().getWidth());
         rampLeftB.setLayoutY(225);
 
         rampRightA.setLayoutX(0);
@@ -78,7 +78,7 @@ public class GamePane extends Pane {
         rampRightB.setLayoutX(0);
         rampRightB.setLayoutY(225);
 
-        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, hands, crewMate, rampLeftA, rampLeftB, rampRightA, rampRightB);
+        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, crewMate, hands, rampLeftA, rampLeftB, rampRightA, rampRightB);
     }
 
     public Label getScoreLabel() {

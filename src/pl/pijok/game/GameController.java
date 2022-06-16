@@ -1,27 +1,24 @@
 package pl.pijok.game;
 
+import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.DialogEvent;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
-import javafx.stage.Popup;
-import javafx.stage.Stage;
+import javafx.scene.shape.QuadCurveTo;
 import javafx.util.Duration;
 import pl.pijok.Assets;
 import pl.pijok.Controllers;
 import pl.pijok.GameAndWatch;
 import pl.pijok.screen.ScreenType;
 
-import java.util.Optional;
 import java.util.Random;
 
 public class GameController {
@@ -50,17 +47,17 @@ public class GameController {
         gamePane.getMissedEggsLabel().textProperty().bind(missedEggs.asString());
 
         eggSpawnPoints = new Point[]{
-                new Point(-24, 48),
-                new Point(-24, 198),
+                new Point(14, 48),
+                new Point(14, 198),
                 new Point(627, 48),
                 new Point(627, 198)
         };
 
         handsPoints = new Point[]{
-                new Point(-25, -75),
-                new Point(-25, 75),
-                new Point(250, -75),
-                new Point(250, 75)
+                new Point(-25, -55),
+                new Point(-25, 95),
+                new Point(250, -55),
+                new Point(250, 95)
         };
 
         animationLocked = false;
@@ -102,6 +99,13 @@ public class GameController {
     public void moveHands(int pointIndex){
         if(animationLocked){
             return;
+        }
+
+        if(pointIndex == 0 || pointIndex == 1){
+            GameAndWatch.getGamePane().getCrewMate().setImage(Assets.getCrewMateFlippedImage());
+        }
+        else{
+            GameAndWatch.getGamePane().getCrewMate().setImage(Assets.getCrewMateImage());
         }
 
         System.out.println("Trying to move hands");
@@ -185,17 +189,44 @@ public class GameController {
             @Override
             public void handle(ActionEvent actionEvent) {
                 System.out.println("Mid-animation finished");
-                Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
+
 
                 if(rampNumber == currentHandsPoint){
-                    score.set(score.get() + 1);
+                    score.set(score.get() + 100);
+                    Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
                 }
                 else{
                     missedEggs.set(missedEggs.get() + 1);
 
-                    if(missedEggs.get() >= 3){
-                        end();
-                    }
+                    Path deathPath = new Path();
+                    deathPath.getElements().add(new MoveTo(egg.getTranslateX(),  egg.getTranslateY()));
+                    deathPath.getElements().add(new QuadCurveTo(egg.getTranslateX() + 50, egg.getTranslateY() - 50, egg.getTranslateX() + 75, egg.getTranslateY() - 225));
+
+                    PathTransition deathTransition = new PathTransition();
+                    deathTransition.setNode(egg);
+                    deathTransition.setPath(path);
+                    deathTransition.setDuration(Duration.seconds(3));
+
+                    FadeTransition fadeTransition = new FadeTransition();
+                    fadeTransition.setNode(egg);
+                    fadeTransition.setFromValue(100);
+                    fadeTransition.setToValue(0);
+                    fadeTransition.setDuration(Duration.seconds(3.1));
+
+                    fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+                        @Override
+                        public void handle(ActionEvent actionEvent) {
+                            Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
+
+                            if(missedEggs.get() >= 3){
+                                end();
+                            }
+                        }
+                    });
+
+                    deathTransition.play();
+                    fadeTransition.play();
+
                 }
             }
         });

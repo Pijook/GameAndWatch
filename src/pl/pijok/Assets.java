@@ -1,6 +1,7 @@
 package pl.pijok;
 
 import javafx.scene.image.Image;
+import javafx.scene.text.Font;
 
 public class Assets {
 
@@ -10,9 +11,12 @@ public class Assets {
     private static Image backgroundImage;
     private static Image handsImage;
     private static Image crewMateImage;
+    private static Image crewMateFlippedImage;
     private static Image shyCrewMateImage;
     private static Image susBackground;
     private static Image bucketImage;
+
+    private static Font minecraftFont;
 
     public static void load(){
         rampRightImage = new Image("file:assets/img/ramp.png");
@@ -22,11 +26,12 @@ public class Assets {
         eggImage = new Image("file:assets/img/egg.png");
         handsImage = new Image("file:assets/img/hands.png");
         crewMateImage = new Image("file:assets/img/crewmate.png");
+        crewMateFlippedImage = new Image("file:assets/img/crewmateFlipped.png");
         susBackground = new Image("file:assets/img/susbackground.png");
         shyCrewMateImage = new Image("file:assets/img/shycrewmate.png");
         bucketImage = new Image("file:assets/img/bucket.png");
 
-        System.out.println(crewMateImage.getWidth() + " " + crewMateImage.getHeight());
+        //minecraftFont = Font.loadFont("assets/fonts/Minecraft.ttf", 36);
     }
 
     public static Image getEggImage() {
@@ -63,5 +68,13 @@ public class Assets {
 
     public static Image getBucketImage() {
         return bucketImage;
+    }
+
+    public static Font getMinecraftFont() {
+        return minecraftFont;
+    }
+
+    public static Image getCrewMateFlippedImage() {
+        return crewMateFlippedImage;
     }
 }

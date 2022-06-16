@@ -73,7 +73,7 @@ public class GameAndWatch extends Application {
     public void stop() throws Exception {
         super.stop();
 
-        Controllers.getLeaderboardController().save();
+        //Controllers.getLeaderboardController().save();
     }
 
     public static BorderPane getMainPane() {
