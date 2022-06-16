@@ -54,6 +54,7 @@ public class InputHandler {
                     }
                     case 2 -> {
                         System.out.println("Exit");
+                        GameAndWatch.getGameStage().close();
                     }
                 }
             }
@@ -80,12 +81,12 @@ public class InputHandler {
                     }
                     case 2 -> {
                         System.out.println("Exit");
+                        GameAndWatch.getGameStage().close();
                     }
                 }
             }
             case DIFFICULTY -> {
                 Controllers.getScreenController().activate(ScreenType.GAME);
-                //Controllers.getGameController().setGameType(GameType.GameB);
                 Controllers.getGameController().reset(GameType.GameB);
             }
         }
@@ -113,7 +114,10 @@ public class InputHandler {
         System.out.println("Time");
         switch (screenController.getCurrentScreenType()){
             case GAME -> {
-                Controllers.getGameController().spawnEgg();
+                //Controllers.getGameController().spawnEgg();
+            }
+            case LEADERBOARD -> {
+                Controllers.getScreenController().activate(ScreenType.MAIN_MENU);
             }
         }
     }

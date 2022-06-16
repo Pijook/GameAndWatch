@@ -18,6 +18,7 @@ import pl.pijok.screen.ScreenType;
 
 public class GameAndWatch extends Application {
 
+    private static Stage gameStage;
     private static Scene scene;
     private static MainPane mainPane;
     private static MenuPane menuPane;
@@ -64,6 +65,8 @@ public class GameAndWatch extends Application {
         stage.setScene(scene);
         stage.setTitle(Settings.getTitle());
         stage.show();
+
+        gameStage = stage;
     }
 
     @Override
@@ -95,5 +98,9 @@ public class GameAndWatch extends Application {
 
     public static LeaderboardPane getLeaderboardPane() {
         return leaderboardPane;
+    }
+
+    public static Stage getGameStage() {
+        return gameStage;
     }
 }

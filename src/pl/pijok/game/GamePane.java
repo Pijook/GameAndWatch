@@ -1,14 +1,10 @@
 package pl.pijok.game;
 
-import javafx.animation.Animation;
-import javafx.animation.RotateTransition;
-import javafx.event.EventHandler;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.util.Duration;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
 import pl.pijok.Assets;
 import pl.pijok.Settings;
 
@@ -32,10 +28,18 @@ public class GamePane extends Pane {
 
     private void createElements(){
         scoreLabel = new Label("0");
-        gameTypeLabel = new Label("Game A");
-        missedEggsLabel = new Label("0");
+        scoreLabel.setFont(new Font(24));
+        scoreLabel.setTextFill(Color.WHITE);
 
-        hands = new ImageView(Assets.getHandsImage());
+        gameTypeLabel = new Label("Game A");
+        gameTypeLabel.setFont(new Font(24));
+        gameTypeLabel.setTextFill(Color.WHITE);
+
+        missedEggsLabel = new Label("0");
+        missedEggsLabel.setFont(new Font(24));
+        missedEggsLabel.setTextFill(Color.WHITE);
+
+        hands = new ImageView(Assets.getBucketImage());
         crewMate = new ImageView(Assets.getCrewMateImage());
 
         rampLeftA = new ImageView(Assets.getRampLeftImage());
@@ -48,13 +52,13 @@ public class GamePane extends Pane {
     private void createLayout(){
 
         scoreLabel.setLayoutX(50);
-        scoreLabel.setLayoutY(50);
+        scoreLabel.setLayoutY(35);
 
-        gameTypeLabel.setLayoutX(100);
-        gameTypeLabel.setLayoutY(100);
+        gameTypeLabel.setLayoutX(250);
+        gameTypeLabel.setLayoutY(35);
 
-        missedEggsLabel.setLayoutX(150);
-        missedEggsLabel.setLayoutY(150);
+        missedEggsLabel.setLayoutX(500);
+        missedEggsLabel.setLayoutY(35);
 
         hands.setLayoutX(200);
         hands.setLayoutY(200);

@@ -19,6 +19,7 @@ public class LeaderboardController {
     }
 
     public void load() throws IOException, ClassNotFoundException {
+        System.out.println("Loading");
         File file = new File("leaderboard.txt");
 
         if(!file.exists()){
@@ -42,6 +43,7 @@ public class LeaderboardController {
     }
 
     public void save() throws IOException {
+        System.out.println("Saving");
         for(Score score : playerScores){
             System.out.println(score);
         }
@@ -67,7 +69,7 @@ public class LeaderboardController {
         playerScores.sort(new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {
-                return o1.score() - o2.score();
+                return o2.score() - o1.score();
             }
         });
     }

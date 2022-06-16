@@ -10,7 +10,9 @@ public class Assets {
     private static Image backgroundImage;
     private static Image handsImage;
     private static Image crewMateImage;
+    private static Image shyCrewMateImage;
     private static Image susBackground;
+    private static Image bucketImage;
 
     public static void load(){
         rampRightImage = new Image("file:assets/img/ramp.png");
@@ -21,6 +23,8 @@ public class Assets {
         handsImage = new Image("file:assets/img/hands.png");
         crewMateImage = new Image("file:assets/img/crewmate.png");
         susBackground = new Image("file:assets/img/susbackground.png");
+        shyCrewMateImage = new Image("file:assets/img/shycrewmate.png");
+        bucketImage = new Image("file:assets/img/bucket.png");
 
         System.out.println(crewMateImage.getWidth() + " " + crewMateImage.getHeight());
     }
@@ -51,5 +55,13 @@ public class Assets {
 
     public static Image getSusBackground() {
         return susBackground;
+    }
+
+    public static Image getShyCrewMateImage() {
+        return shyCrewMateImage;
+    }
+
+    public static Image getBucketImage() {
+        return bucketImage;
     }
 }

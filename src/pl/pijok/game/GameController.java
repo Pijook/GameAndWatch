@@ -1,6 +1,7 @@
 package pl.pijok.game;
 
 import javafx.animation.PathTransition;
+import javafx.animation.RotateTransition;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -146,7 +147,7 @@ public class GameController {
         int rampNumber = new Random().nextInt(range);
         Point startingPoint = eggSpawnPoints[rampNumber];
 
-        ImageView egg = new ImageView(Assets.getEggImage());
+        ImageView egg = new ImageView(Assets.getShyCrewMateImage());
         Controllers.getScreenController().getCurrentScreen().getChildren().add(egg);
 
         Path path = new Path();
@@ -160,12 +161,25 @@ public class GameController {
         }
 
 
+        RotateTransition rotateTransition = new RotateTransition();
+        rotateTransition.setDuration(Duration.seconds(3));
+        rotateTransition.setNode(egg);
+
+        if(rampNumber <= 1){
+            rotateTransition.setByAngle(720);
+        }
+        else{
+            rotateTransition.setByAngle(-720);
+        }
+
+
         PathTransition pathTransition = new PathTransition();
         pathTransition.setPath(path);
         pathTransition.setNode(egg);
         pathTransition.setDuration(Duration.seconds(3));
 
         pathTransition.play();
+        rotateTransition.play();
 
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override

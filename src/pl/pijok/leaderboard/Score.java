@@ -6,10 +6,6 @@ public record Score(String nickname, int score, int time) implements Serializabl
 
     @Override
     public String toString() {
-        return "Score{" +
-                "nickname='" + nickname + '\'' +
-                ", score=" + score +
-                ", time=" + time +
-                "} ";
+        return nickname + " " + score;
     }
 }
