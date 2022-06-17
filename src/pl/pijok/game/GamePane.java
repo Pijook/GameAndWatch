@@ -6,7 +6,6 @@ import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import pl.pijok.Assets;
-import pl.pijok.Settings;
 
 public class GamePane extends Pane {
 
@@ -45,7 +44,6 @@ public class GamePane extends Pane {
         crewMate = new ImageView(Assets.getCrewMateImage());
 
         smallCrewMate = new ImageView(Assets.getSmallCrewMateImage());
-        //smallCrewMate.setOpacity(0);
 
         rampLeftA = new ImageView(Assets.getRampLeftImage());
         rampLeftB = new ImageView(Assets.getRampLeftImage());

@@ -1,7 +1,6 @@
 package pl.pijok.screen;
 
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 
 import java.util.HashMap;
 

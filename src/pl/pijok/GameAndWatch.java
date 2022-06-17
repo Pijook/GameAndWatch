@@ -8,7 +8,6 @@ import javafx.scene.input.KeyCodeCombination;
 import javafx.scene.input.KeyCombination;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import pl.pijok.game.DifficultyPane;
 import pl.pijok.game.GamePane;

@@ -89,7 +89,7 @@ public class GameController {
         FadeTransition fadeTransition = new FadeTransition();
 
         fadeTransition.setNode(GameAndWatch.getGamePane().getSmallCrewMate());
-        fadeTransition.setDuration(Duration.millis(1500));
+        fadeTransition.setDuration(Duration.millis(500));
 
         if(minnieShowed){
             fadeTransition.setFromValue(100);

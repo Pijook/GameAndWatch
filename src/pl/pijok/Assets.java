@@ -1,10 +1,6 @@
 package pl.pijok;
 
 import javafx.scene.image.Image;
-import javafx.scene.media.Media;
-import javafx.scene.text.Font;
-
-import java.net.MalformedURLException;
 
 public class Assets {
 
@@ -20,10 +16,9 @@ public class Assets {
     private static Image bucketImage;
     private static Image smallCrewMateImage;
 
-    public static void load() throws MalformedURLException {
+    public static void load() {
         rampRightImage = new Image("file:assets/img/ramp.png");
         rampLeftImage = new Image("file:assets/img/ramp2.png");
-        //backgroundImage = new Image("file:assets/img/MC-252.png");
         backgroundImage = new Image("file:assets/img/consolus.png");
         eggImage = new Image("file:assets/img/egg.png");
         handsImage = new Image("file:assets/img/hands.png");
@@ -33,8 +28,6 @@ public class Assets {
         susBackground = new Image("file:assets/img/susbackground.png");
         shyCrewMateImage = new Image("file:assets/img/shycrewmate.png");
         bucketImage = new Image("file:assets/img/bucket.png");
-
-        //minecraftFont = Font.loadFont("assets/fonts/Minecraft.ttf", 36);
     }
 
     public static Image getEggImage() {

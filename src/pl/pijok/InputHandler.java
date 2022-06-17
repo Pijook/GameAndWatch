@@ -98,7 +98,6 @@ public class InputHandler {
     }
 
     public static void handleTime(){
-        System.out.println("Time");
         switch (screenController.getCurrentScreenType()){
             case LEADERBOARD -> {
                 Controllers.getScreenController().activate(ScreenType.MAIN_MENU);

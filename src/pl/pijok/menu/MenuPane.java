@@ -6,7 +6,6 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import pl.pijok.Assets;
 
 public class MenuPane extends StackPane {
 
@@ -23,7 +22,6 @@ public class MenuPane extends StackPane {
 
     private void createElements(){
         titleLabel = new Label("Amogus");
-        //titleLabel.setFont(Assets.getMinecraftFont());
         titleLabel.setTextFill(Color.WHITE);
         titleLabel.setFont(new Font(30));
 

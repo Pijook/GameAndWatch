@@ -12,7 +12,6 @@ import java.util.List;
 
 public class LeaderboardController {
 
-    //private List<Score> playerScores;
     private ObservableList<Score> playerScores;
 
     public LeaderboardController(){
