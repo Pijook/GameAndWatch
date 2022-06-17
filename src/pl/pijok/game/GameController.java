@@ -37,6 +37,8 @@ public class GameController {
     private int currentHandsPoint;
     private boolean animationLocked;
 
+    private boolean ended;
+
     public GameController(){
         score = new SimpleIntegerProperty();
         missedEggs = new SimpleIntegerProperty();
@@ -61,6 +63,7 @@ public class GameController {
         };
 
         animationLocked = false;
+        ended = false;
     }
 
     public void reset(GameType type){
@@ -74,9 +77,11 @@ public class GameController {
 
         gameTimer = new GameTimer();
         gameTimer.start();
+        ended = false;
     }
 
     public void end(){
+        ended = true;
         gameTimer.interrupt();
 
         TextInputDialog textInputDialog = new TextInputDialog();
@@ -89,7 +94,7 @@ public class GameController {
         textInputDialog.setOnCloseRequest(new EventHandler<DialogEvent>() {
             @Override
             public void handle(DialogEvent dialogEvent) {
-               Controllers.getLeaderboardController().addScore(textInputDialog.getResult(), score.get(), time);
+               Controllers.getLeaderboardController().addScore(textInputDialog.getResult(), score.get(), time, gameType);
                Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
             }
         });
@@ -121,7 +126,7 @@ public class GameController {
         PathTransition pathTransition = new PathTransition();
         pathTransition.setNode(gamePane.getHands());
         pathTransition.setPath(path);
-        pathTransition.setDuration(Duration.seconds(1));
+        pathTransition.setDuration(Duration.millis(500));
 
         animationLocked = true;
         pathTransition.play();
@@ -129,8 +134,6 @@ public class GameController {
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Animation finished");
-                System.out.println(gamePane.getHands().getX() + " " + gamePane.getHands().getY());
                 currentHandsPoint = pointIndex;
                 animationLocked = false;
             }
@@ -188,24 +191,57 @@ public class GameController {
         pathTransition.setOnFinished(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent actionEvent) {
-                System.out.println("Mid-animation finished");
-
 
                 if(rampNumber == currentHandsPoint){
                     score.set(score.get() + 100);
                     Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
                 }
                 else{
-                    missedEggs.set(missedEggs.get() + 1);
 
                     Path deathPath = new Path();
-                    deathPath.getElements().add(new MoveTo(egg.getTranslateX(),  egg.getTranslateY()));
-                    deathPath.getElements().add(new QuadCurveTo(egg.getTranslateX() + 50, egg.getTranslateY() - 50, egg.getTranslateX() + 75, egg.getTranslateY() - 225));
+                    if(rampNumber <= 1){
+                        deathPath.getElements().add(
+                                new MoveTo(
+                                        startingPoint.getX() + Assets.getRampLeftImage().getWidth(),
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight()));
+
+                        deathPath.getElements().add(
+                                new QuadCurveTo(
+                                        startingPoint.getX() + Assets.getRampLeftImage().getWidth() + 50,
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight() + 50,
+                                        startingPoint.getX() + Assets.getRampLeftImage().getWidth() + 100,
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight() + 50));
+                    }
+                    else{
+                        deathPath.getElements().add(
+                                new MoveTo(
+                                        startingPoint.getX() - Assets.getRampLeftImage().getWidth(),
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight()));
+
+                        deathPath.getElements().add(
+                                new QuadCurveTo(
+                                        startingPoint.getX() - Assets.getRampLeftImage().getWidth() - 50,
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight() + 50,
+                                        startingPoint.getX() - Assets.getRampLeftImage().getWidth() - 100,
+                                        startingPoint.getY() + Assets.getRampLeftImage().getHeight() + 50));
+                    }
+
 
                     PathTransition deathTransition = new PathTransition();
                     deathTransition.setNode(egg);
-                    deathTransition.setPath(path);
+                    deathTransition.setPath(deathPath);
                     deathTransition.setDuration(Duration.seconds(3));
+
+                    RotateTransition deathRotate = new RotateTransition();
+                    deathRotate.setNode(egg);
+                    if(rampNumber <= 1){
+                        deathRotate.setByAngle(720);
+                    }
+                    else{
+                        deathRotate.setByAngle(-720);
+                    }
+
+                    deathRotate.setDuration(Duration.seconds(3));
 
                     FadeTransition fadeTransition = new FadeTransition();
                     fadeTransition.setNode(egg);
@@ -217,15 +253,19 @@ public class GameController {
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
+                            missedEggs.set(missedEggs.get() + 1);
 
                             if(missedEggs.get() >= 3){
-                                end();
+                                if(!ended){
+                                    end();
+                                }
                             }
                         }
                     });
 
                     deathTransition.play();
                     fadeTransition.play();
+                    deathRotate.play();
 
                 }
             }
@@ -280,4 +320,10 @@ public class GameController {
     public void setCurrentHandsPoint(int currentHandsPoint) {
         this.currentHandsPoint = currentHandsPoint;
     }
+
+    public GameTimer getGameTimer() {
+        return gameTimer;
+    }
 }
+
+

@@ -3,6 +3,7 @@ package pl.pijok.leaderboard;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import pl.pijok.GameAndWatch;
+import pl.pijok.game.GameType;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -24,9 +25,9 @@ public class LeaderboardController {
 
         if(!file.exists()){
             playerScores = FXCollections.observableArrayList(
-                    new Score("Pijok", 100, 60),
-                    new Score("Fade", 75, 15),
-                    new Score("Hex", -1, -1)
+                    new Score("Pijok", 100, 60, GameType.GameA),
+                    new Score("Fade", 75, 15, GameType.GameA),
+                    new Score("Hex", -1, -1, GameType.GameA)
             );
             return;
         }
@@ -65,8 +66,8 @@ public class LeaderboardController {
         objectOutputStream.close();
     }
 
-    public void addScore(String nickname, int score, int time){
-        playerScores.add(new Score(nickname, score, time));
+    public void addScore(String nickname, int score, int time, GameType gameType){
+        playerScores.add(new Score(nickname, score, time, gameType));
         playerScores.sort(new Comparator<Score>() {
             @Override
             public int compare(Score o1, Score o2) {

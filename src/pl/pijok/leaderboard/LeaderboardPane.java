@@ -1,12 +1,19 @@
 package pl.pijok.leaderboard;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
+import javafx.util.Callback;
 
 public class LeaderboardPane extends Pane {
 
@@ -30,6 +37,24 @@ public class LeaderboardPane extends Pane {
         playerScores = new ListView<>();
         playerScores.setMinWidth(300);
         playerScores.setPrefHeight(200);
+        playerScores.setCellFactory(new Callback<ListView<Score>, ListCell<Score>>() {
+            @Override
+            public ListCell<Score> call(ListView<Score> scoreListView) {
+                return new ScoreView();
+            }
+        });
+
+        playerScores.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Score>() {
+            @Override
+            public void changed(ObservableValue<? extends Score> observableValue, Score score, Score t1) {
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Score");
+                alert.setHeaderText(t1.nickname());
+                alert.setContentText("Game Type: " + t1.gameType().toString() + "\nScore: " + t1.score() + "\nTime: " + t1.time());
+
+                alert.show();
+            }
+        });
 
         titleLabel = new Label("Leaderboard");
         titleLabel.setFont(new Font(48));

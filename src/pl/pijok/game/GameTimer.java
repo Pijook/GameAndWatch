@@ -35,10 +35,11 @@ public class GameTimer extends Thread {
                 spawnTimer = 0;
             }
 
+            Controllers.getGameController().setTime(Controllers.getGameController().getTime() + 1);
+
             try {
                 sleep(1000);
             } catch (InterruptedException e) {
-                e.printStackTrace();
                 break;
             }
         }

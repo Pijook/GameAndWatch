@@ -71,9 +71,13 @@ public class GameAndWatch extends Application {
 
     @Override
     public void stop() throws Exception {
-        super.stop();
+        if(Controllers.getGameController().getGameTimer() != null && !Controllers.getGameController().getGameTimer().isInterrupted()){
+            Controllers.getGameController().getGameTimer().interrupt();
+        }
 
-        //Controllers.getLeaderboardController().save();
+        Controllers.getLeaderboardController().save();
+
+        super.stop();
     }
 
     public static BorderPane getMainPane() {
