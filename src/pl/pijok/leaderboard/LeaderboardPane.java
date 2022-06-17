@@ -45,6 +45,9 @@ public class LeaderboardPane extends Pane {
         playerScores.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<Score>() {
             @Override
             public void changed(ObservableValue<? extends Score> observableValue, Score score, Score t1) {
+                if(t1 == null){
+                    return;
+                }
                 Alert alert = new Alert(Alert.AlertType.INFORMATION);
                 alert.setTitle("Score");
                 alert.setHeaderText(t1.nickname());

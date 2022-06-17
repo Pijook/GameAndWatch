@@ -82,6 +82,14 @@ public class GameController {
         gameTimer = new GameTimer();
         gameTimer.start();
         ended = false;
+
+        if(gameType == GameType.GameA){
+            GameAndWatch.getGamePane().getGameTypeLabel().setText("Game A");
+        }
+        else{
+            GameAndWatch.getGamePane().getGameTypeLabel().setText("Game B");
+        }
+
         moveHands(2);
     }
 
@@ -144,6 +152,10 @@ public class GameController {
 
     public void moveHands(int pointIndex){
         if(animationLocked){
+            return;
+        }
+
+        if(pointIndex == currentHandsPoint){
             return;
         }
 
