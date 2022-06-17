@@ -3,6 +3,7 @@ package pl.pijok.game;
 import javafx.animation.FadeTransition;
 import javafx.animation.PathTransition;
 import javafx.animation.RotateTransition;
+import javafx.beans.property.SimpleDoubleProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -17,6 +18,7 @@ import javafx.util.Duration;
 import pl.pijok.Assets;
 import pl.pijok.Controllers;
 import pl.pijok.GameAndWatch;
+import pl.pijok.Settings;
 import pl.pijok.screen.ScreenType;
 
 import java.util.Random;
@@ -24,7 +26,7 @@ import java.util.Random;
 public class GameController {
 
     private SimpleIntegerProperty score;
-    private SimpleIntegerProperty missedEggs;
+    private SimpleDoubleProperty missedEggs;
     private int time;
     private boolean minnieShowed;
     private GameType gameType;
@@ -41,8 +43,10 @@ public class GameController {
 
     public GameController(){
         score = new SimpleIntegerProperty();
-        missedEggs = new SimpleIntegerProperty();
+        missedEggs = new SimpleDoubleProperty();
         gameTimer = null;
+
+        minnieShowed = false;
 
         GamePane gamePane = GameAndWatch.getGamePane();
         gamePane.getScoreLabel().textProperty().bind(score.asString());
@@ -62,7 +66,7 @@ public class GameController {
                 new Point(250, 95)
         };
 
-        animationLocked = false;
+        animationLocked = true;
         ended = false;
     }
 
@@ -70,7 +74,7 @@ public class GameController {
         score.set(0);
         missedEggs.set(0);
         time = 0;
-        minnieShowed = false;
+        minnieShowed = true;
         gameType = type;
         currentHandsPoint = 0;
         animationLocked = false;
@@ -78,6 +82,37 @@ public class GameController {
         gameTimer = new GameTimer();
         gameTimer.start();
         ended = false;
+        moveHands(2);
+    }
+
+    public void changeCrewMateVisibility(){
+        FadeTransition fadeTransition = new FadeTransition();
+
+        fadeTransition.setNode(GameAndWatch.getGamePane().getSmallCrewMate());
+        fadeTransition.setDuration(Duration.millis(1500));
+
+        if(minnieShowed){
+            fadeTransition.setFromValue(100);
+            fadeTransition.setToValue(0);
+        }
+        else{
+            fadeTransition.setFromValue(0);
+            fadeTransition.setToValue(100);
+        }
+
+        fadeTransition.setOnFinished(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                if(minnieShowed){
+                    minnieShowed = false;
+                }
+                else{
+                    minnieShowed = true;
+                }
+            }
+        });
+
+        fadeTransition.play();
     }
 
     public void end(){
@@ -94,8 +129,14 @@ public class GameController {
         textInputDialog.setOnCloseRequest(new EventHandler<DialogEvent>() {
             @Override
             public void handle(DialogEvent dialogEvent) {
-               Controllers.getLeaderboardController().addScore(textInputDialog.getResult(), score.get(), time, gameType);
-               Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
+                String nickname = textInputDialog.getResult();
+                if(nickname == null || nickname.length() == 0 || nickname.length() > 32){
+                    dialogEvent.consume();
+                    return;
+                }
+
+                Controllers.getLeaderboardController().addScore(nickname, score.get(), time, gameType);
+                Controllers.getScreenController().activate(ScreenType.LEADERBOARD);
             }
         });
 
@@ -113,7 +154,6 @@ public class GameController {
             GameAndWatch.getGamePane().getCrewMate().setImage(Assets.getCrewMateImage());
         }
 
-        System.out.println("Trying to move hands");
         GamePane gamePane = (GamePane) Controllers.getScreenController().getScreens().get(ScreenType.GAME);
 
         Point currentPoint = handsPoints[currentHandsPoint];
@@ -193,7 +233,16 @@ public class GameController {
             public void handle(ActionEvent actionEvent) {
 
                 if(rampNumber == currentHandsPoint){
-                    score.set(score.get() + 100);
+                    score.set(score.get() + 1);
+
+                    if(score.get() == 200 || score.get() == 500){
+                        missedEggs.set(0);
+                    }
+
+                    if(score.get() % 100 == 0){
+                        gameTimer.setSpawnRate(Settings.getDefaultSpawnRate());
+                    }
+
                     Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
                 }
                 else{
@@ -253,9 +302,15 @@ public class GameController {
                         @Override
                         public void handle(ActionEvent actionEvent) {
                             Controllers.getScreenController().getCurrentScreen().getChildren().remove(egg);
-                            missedEggs.set(missedEggs.get() + 1);
+                            if(minnieShowed){
+                                missedEggs.set(missedEggs.get() + 0.5);
+                            }
+                            else{
+                                missedEggs.set(missedEggs.get() + 1);
+                            }
 
-                            if(missedEggs.get() >= 3){
+
+                            if(missedEggs.get() >= Settings.getLives()){
                                 if(!ended){
                                     end();
                                 }
@@ -323,6 +378,10 @@ public class GameController {
 
     public GameTimer getGameTimer() {
         return gameTimer;
+    }
+
+    public boolean isEnded() {
+        return ended;
     }
 }
 

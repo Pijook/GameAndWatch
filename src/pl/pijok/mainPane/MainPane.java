@@ -3,7 +3,6 @@ package pl.pijok.mainPane;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Group;
 import javafx.scene.control.Button;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -74,6 +73,7 @@ public class MainPane extends BorderPane {
         });
 
         gameButtonA = new Button("Game A");
+        gameButtonA.setPadding(new Insets(10, 10, 10, 10));
         gameButtonA.setOpacity(0);
         gameButtonA.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -83,6 +83,7 @@ public class MainPane extends BorderPane {
         });
 
         gameButtonB = new Button("Game B");
+        gameButtonB.setPadding(new Insets(10, 10, 10, 10));
         gameButtonB.setOpacity(0);
         gameButtonB.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override
@@ -92,6 +93,7 @@ public class MainPane extends BorderPane {
         });
 
         timeButton = new Button("Time");
+        timeButton.setPadding(new Insets(20, 20, 20, 20));
         timeButton.setOpacity(0);
         timeButton.setOnMouseClicked(new EventHandler<MouseEvent>() {
             @Override

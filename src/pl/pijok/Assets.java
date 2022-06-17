@@ -1,7 +1,10 @@
 package pl.pijok;
 
 import javafx.scene.image.Image;
+import javafx.scene.media.Media;
 import javafx.scene.text.Font;
+
+import java.net.MalformedURLException;
 
 public class Assets {
 
@@ -15,10 +18,9 @@ public class Assets {
     private static Image shyCrewMateImage;
     private static Image susBackground;
     private static Image bucketImage;
+    private static Image smallCrewMateImage;
 
-    private static Font minecraftFont;
-
-    public static void load(){
+    public static void load() throws MalformedURLException {
         rampRightImage = new Image("file:assets/img/ramp.png");
         rampLeftImage = new Image("file:assets/img/ramp2.png");
         //backgroundImage = new Image("file:assets/img/MC-252.png");
@@ -27,6 +29,7 @@ public class Assets {
         handsImage = new Image("file:assets/img/hands.png");
         crewMateImage = new Image("file:assets/img/crewmate.png");
         crewMateFlippedImage = new Image("file:assets/img/crewmateFlipped.png");
+        smallCrewMateImage = new Image("file:assets/img/smallCrewmate.png");
         susBackground = new Image("file:assets/img/susbackground.png");
         shyCrewMateImage = new Image("file:assets/img/shycrewmate.png");
         bucketImage = new Image("file:assets/img/bucket.png");
@@ -70,11 +73,11 @@ public class Assets {
         return bucketImage;
     }
 
-    public static Font getMinecraftFont() {
-        return minecraftFont;
-    }
-
     public static Image getCrewMateFlippedImage() {
         return crewMateFlippedImage;
+    }
+
+    public static Image getSmallCrewMateImage() {
+        return smallCrewMateImage;
     }
 }

@@ -21,6 +21,8 @@ public class GamePane extends Pane {
     private ImageView crewMate;
     private ImageView hands;
 
+    private ImageView smallCrewMate;
+
     public GamePane(){
         createElements();
         createLayout();
@@ -41,6 +43,9 @@ public class GamePane extends Pane {
 
         hands = new ImageView(Assets.getBucketImage());
         crewMate = new ImageView(Assets.getCrewMateImage());
+
+        smallCrewMate = new ImageView(Assets.getSmallCrewMateImage());
+        //smallCrewMate.setOpacity(0);
 
         rampLeftA = new ImageView(Assets.getRampLeftImage());
         rampLeftB = new ImageView(Assets.getRampLeftImage());
@@ -66,19 +71,22 @@ public class GamePane extends Pane {
         crewMate.setLayoutX(225);
         crewMate.setLayoutY(75);
 
+        smallCrewMate.setLayoutX(175);
+        smallCrewMate.setLayoutY(250);
+
         rampLeftA.setLayoutX(610 - rampLeftA.getImage().getWidth());
         rampLeftA.setLayoutY(75);
 
         rampLeftB.setLayoutX(610 - rampLeftB.getImage().getWidth());
         rampLeftB.setLayoutY(225);
 
-        rampRightA.setLayoutX(0);
+        rampRightA.setLayoutX(10);
         rampRightA.setLayoutY(75);
 
-        rampRightB.setLayoutX(0);
+        rampRightB.setLayoutX(10);
         rampRightB.setLayoutY(225);
 
-        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, crewMate, hands, rampLeftA, rampLeftB, rampRightA, rampRightB);
+        getChildren().addAll(scoreLabel, gameTypeLabel, missedEggsLabel, crewMate, smallCrewMate, hands, rampLeftA, rampLeftB, rampRightA, rampRightB);
     }
 
     public Label getScoreLabel() {
@@ -123,5 +131,9 @@ public class GamePane extends Pane {
 
     public ImageView getCrewMate() {
         return crewMate;
+    }
+
+    public ImageView getSmallCrewMate() {
+        return smallCrewMate;
     }
 }

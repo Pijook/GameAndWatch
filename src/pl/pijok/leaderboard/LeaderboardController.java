@@ -46,9 +46,6 @@ public class LeaderboardController {
 
     public void save() throws IOException {
         System.out.println("Saving");
-        for(Score score : playerScores){
-            System.out.println(score);
-        }
         File file = new File("leaderboard.txt");
 
         if(file.exists()){

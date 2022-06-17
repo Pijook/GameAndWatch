@@ -2,15 +2,16 @@ package pl.pijok;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.*;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 import pl.pijok.game.DifficultyPane;
 import pl.pijok.game.GamePane;
-import pl.pijok.game.GamePaneA;
-import pl.pijok.game.GamePaneB;
 import pl.pijok.leaderboard.LeaderboardPane;
 import pl.pijok.mainPane.MainPane;
 import pl.pijok.menu.MenuPane;
@@ -59,6 +60,22 @@ public class GameAndWatch extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         scene = new Scene(mainPane, Settings.getWidth(), Settings.getHeight());
+
+        scene.addEventFilter(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+            final KeyCombination keyComb = new KeyCodeCombination(KeyCode.Q, KeyCombination.SHIFT_DOWN, KeyCombination.CONTROL_DOWN);
+            public void handle(KeyEvent ke) {
+                if (keyComb.match(ke)) {
+                    if(Controllers.getScreenController().getCurrentScreenType().equals(ScreenType.GAME)) {
+                        if (!Controllers.getGameController().isEnded()) {
+                            Controllers.getGameController().end();
+                        }
+                    }
+                    else{
+                        Controllers.getScreenController().activate(ScreenType.MAIN_MENU);
+                    }
+                }
+            }
+        });
 
         Controllers.getScreenController().activate(ScreenType.MAIN_MENU);
 
